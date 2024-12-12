@@ -1,0 +1,95 @@
+Table City {
+  id SERIAL
+}
+
+Table TrainType {
+  id SERIAL
+}
+
+Table Station {
+  id SERIAL
+  cityId INT
+}
+
+Table Line {
+  id SERIAL
+  startStationId INT
+  endStationId INT
+}
+
+Table Segment {
+  id SERIAL
+  fromStationId INT
+  toStationId INT
+  duration INT
+  trainTypeId INT
+  price DECIMAL(10, 2)
+}
+
+Table Path {
+  id SERIAL
+  lineId INT
+  trainTypeId INT
+}
+
+Table PathSegment {
+  pathId INT
+  segmentId INT
+  segmentIndex INT
+}
+
+Table Train {
+  id SERIAL
+  typeId INT
+  capacity INT
+}
+
+Table TrainPath {
+  trainId INT
+  pathId INT
+  departure TIME
+}
+
+Table Ticket {
+  id SERIAL
+  fromStationId INT
+  toStationId INT
+  customerId INT
+  price DECIMAL(10, 2)
+  validUntil DATETIME
+}
+
+Table Customer {
+  id SERIAL
+  firstname VARCHAR(255)
+  lastname VARCHAR(255)
+  birthdate DATE
+}
+
+Ref: "Station"."id" <> "Segment"."fromStationId"
+Ref: "Station"."id" <> "Segment"."toStationId"
+
+Ref: "PathSegment"."segmentId" > "Segment"."id"
+Ref: "PathSegment"."pathId" > "Path"."id"
+
+Ref: "Station"."cityId" < "City"."id"
+
+Ref: "Path"."lineId" <> "Line"."id"
+
+Ref: "TrainType"."id" > "Path"."trainTypeId"
+
+Ref: "Station"."id" < "Line"."startStationId"
+
+Ref: "Station"."id" < "Line"."endStationId"
+
+Ref: "Train"."typeId" > "TrainType"."id"
+
+Ref: "Train"."id" < "TrainPath"."trainId"
+
+Ref: "Path"."id" < "TrainPath"."pathId"
+
+Ref: "Ticket"."fromStationId" < "Station"."id"
+
+Ref: "Ticket"."toStationId" < "Station"."id"
+
+Ref: "Ticket"."customerId" - "Customer"."id"
