@@ -36,6 +36,7 @@ CREATE TABLE PathSegment (
   pathId INT NOT NULL REFERENCES Path(id),
   segmentId INT NOT NULL REFERENCES Segment(id),
   segmentIndex INT NOT NULL,
+  PRIMARY KEY (pathId, segmentId, segmentIndex)
 );
 
 CREATE TABLE Train (
@@ -48,6 +49,7 @@ CREATE TABLE TrainPath (
   trainId INT NOT NULL REFERENCES Train(id),
   pathId INT NOT NULL REFERENCES Path(id),
   departure TIME NOT NULL
+  PRIMARY KEY (traindI, pathId, departure)
 );
 
 CREATE TABLE Ticket (
