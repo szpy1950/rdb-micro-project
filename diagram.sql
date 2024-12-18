@@ -46,8 +46,8 @@ CREATE TABLE Train (
 
 CREATE TABLE TrainPath (
   trainId INT NOT NULL REFERENCES Train(id),
-  pathId INT NOT NULL REFERENCES Path(id)
-  departure TIME NOT NULL,
+  pathId INT NOT NULL REFERENCES Path(id),
+  departure TIME NOT NULL
 );
 
 CREATE TABLE Ticket (
