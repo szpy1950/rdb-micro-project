@@ -13,48 +13,48 @@ CREATE TABLE Station (
 
 CREATE TABLE Line (
   id SERIAL PRIMARY KEY,
-  startStationId INT REFERENCES Station(id),
-  endStationId INT REFERENCES Station(id)
+  startStationId INT NOT NULL REFERENCES Station(id),
+  endStationId INT NOT NULL REFERENCES Station(id)
 );
 
 CREATE TABLE Segment (
   id SERIAL PRIMARY KEY,
-  fromStationId INT REFERENCES Station(id),
-  toStationId INT REFERENCES Station(id),
+  fromStationId INT NOT NULL REFERENCES Station(id),
+  toStationId INT NOT NULL REFERENCES Station(id),
   duration INT NOT NULL,
-  trainTypeId INT REFERENCES TrainType(id),
+  trainTypeId INT NOT NULL REFERENCES TrainType(id),
   price DECIMAL(10, 2) NOT NULL
 );
 
 CREATE TABLE Path (
   id SERIAL PRIMARY KEY,
-  lineId INT REFERENCES Line(id),
-  trainTypeId INT REFERENCES TrainType(id)
+  lineId INT NOT NULL REFERENCES Line(id),
+  trainTypeId INT NOT NULL REFERENCES TrainType(id)
 );
 
 CREATE TABLE PathSegment (
-  pathId INT REFERENCES Path(id),
-  segmentId INT REFERENCES Segment(id),
+  pathId INT NOT NULL REFERENCES Path(id),
+  segmentId INT NOT NULL REFERENCES Segment(id),
   segmentIndex INT NOT NULL,
 );
 
 CREATE TABLE Train (
   id SERIAL PRIMARY KEY,
-  typeId INT REFERENCES TrainType(id),
+  typeId INT NOT NULL REFERENCES TrainType(id),
   capacity INT NOT NULL
 );
 
 CREATE TABLE TrainPath (
-  trainId INT REFERENCES Train(id),
-  pathId INT REFERENCES Path(id)
+  trainId INT NOT NULL REFERENCES Train(id),
+  pathId INT NOT NULL REFERENCES Path(id)
   departure TIME NOT NULL,
 );
 
 CREATE TABLE Ticket (
   id SERIAL PRIMARY KEY,
-  fromStationId INT REFERENCES Station(id),
-  toStationId INT REFERENCES Station(id),
-  customerId INT REFERENCES Customer(id),
+  fromStationId INT NOT NULL REFERENCES Station(id),
+  toStationId INT NOT NULL REFERENCES Station(id),
+  customerId INT NOT NULL REFERENCES Customer(id),
   price DECIMAL(10, 2) NOT NULL,
   validUntil DATETIME NOT NULL
 );
