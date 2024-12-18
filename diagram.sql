@@ -13,16 +13,15 @@ CREATE TABLE Station (
 
 CREATE TABLE Line (
   id SERIAL PRIMARY KEY,
-  startStationId INT NOT NULL REFERENCES Station(id),
-  endStationId INT NOT NULL REFERENCES Station(id)
+  startStationId INT NOT NULL REFERENCES Station(id) ON DELETE CASCADE,
+  endStationId INT NOT NULL REFERENCES Station(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Segment (
   id SERIAL PRIMARY KEY,
-  fromStationId INT NOT NULL REFERENCES Station(id),
-  toStationId INT NOT NULL REFERENCES Station(id),
+  fromStationId INT NOT NULL REFERENCES Station(id) ON DELETE CASCADE,
+  toStationId INT NOT NULL REFERENCES Station(id) ON DELETE CASCADE,
   duration INT NOT NULL,
-  trainTypeId INT NOT NULL REFERENCES TrainType(id),
   price DECIMAL(10, 2) NOT NULL
 );
 
@@ -33,30 +32,30 @@ CREATE TABLE Path (
 );
 
 CREATE TABLE PathSegment (
-  pathId INT NOT NULL REFERENCES Path(id),
-  segmentId INT NOT NULL REFERENCES Segment(id),
+  pathId INT NOT NULL REFERENCES Path(id) ON DELETE CASCADE,
+  segmentId INT NOT NULL REFERENCES Segment(id) ON DELETE CASCADE,
   segmentIndex INT NOT NULL,
   PRIMARY KEY (pathId, segmentId, segmentIndex)
 );
 
 CREATE TABLE Train (
   id SERIAL PRIMARY KEY,
-  typeId INT NOT NULL REFERENCES TrainType(id),
+  typeId INT NOT NULL REFERENCES TrainType(id) ON DELETE CASCADE,
   capacity INT NOT NULL
 );
 
 CREATE TABLE TrainPath (
-  trainId INT NOT NULL REFERENCES Train(id),
-  pathId INT NOT NULL REFERENCES Path(id),
+  trainId INT NOT NULL REFERENCES Train(id) ON DELETE CASCADE,
+  pathId INT NOT NULL REFERENCES Path(id) ON DELETE CASCADE,
   departure TIME NOT NULL
   PRIMARY KEY (traindI, pathId, departure)
 );
 
 CREATE TABLE Ticket (
   id SERIAL PRIMARY KEY,
-  fromStationId INT NOT NULL REFERENCES Station(id),
-  toStationId INT NOT NULL REFERENCES Station(id),
-  customerId INT NOT NULL REFERENCES Customer(id),
+  fromStationId INT NOT NULL REFERENCES Station(id) ON DELETE CASCADE,
+  toStationId INT NOT NULL REFERENCES Station(id) ON DELETE CASCADE,
+  customerId INT NOT NULL REFERENCES Customer(id) ON DELETE CASCADE,
   price DECIMAL(10, 2) NOT NULL,
   validUntil DATETIME NOT NULL
 );
