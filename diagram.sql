@@ -1,60 +1,64 @@
 CREATE TABLE City (
-  id SERIAL PRIMARY KEY
+  id SERIAL PRIMARY KEY,
+  cityName VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE TrainType (
-  id SERIAL PRIMARY KEY
+  id SERIAL PRIMARY KEY,
+  trainTypeName VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Station (
   id SERIAL PRIMARY KEY,
-  cityId INT REFERENCES City(id)
+  cityId INT REFERENCES City(id),
+  stationName VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE Line (
   id SERIAL PRIMARY KEY,
-  startStationId INT REFERENCES Station(id),
-  endStationId INT REFERENCES Station(id)
+  startStationId INT NOT NULL REFERENCES Station(id) ON DELETE CASCADE,
+  endStationId INT NOT NULL REFERENCES Station(id) ON DELETE CASCADE
 );
 
 CREATE TABLE Segment (
   id SERIAL PRIMARY KEY,
-  fromStationId INT REFERENCES Station(id),
-  toStationId INT REFERENCES Station(id),
+  fromStationId INT NOT NULL REFERENCES Station(id) ON DELETE CASCADE,
+  toStationId INT NOT NULL REFERENCES Station(id) ON DELETE CASCADE,
   duration INT NOT NULL,
-  trainTypeId INT REFERENCES TrainType(id),
   price DECIMAL(10, 2) NOT NULL
 );
 
 CREATE TABLE Path (
   id SERIAL PRIMARY KEY,
-  lineId INT REFERENCES Line(id),
-  trainTypeId INT REFERENCES TrainType(id)
+  lineId INT NOT NULL REFERENCES Line(id),
+  trainTypeId INT NOT NULL REFERENCES TrainType(id)
 );
 
 CREATE TABLE PathSegment (
-  pathId INT REFERENCES Path(id),
-  segmentId INT REFERENCES Segment(id),
+  pathId INT NOT NULL REFERENCES Path(id) ON DELETE CASCADE,
+  segmentId INT NOT NULL REFERENCES Segment(id) ON DELETE CASCADE,
   segmentIndex INT NOT NULL,
+  PRIMARY KEY (pathId, segmentId, segmentIndex)
 );
 
 CREATE TABLE Train (
   id SERIAL PRIMARY KEY,
-  typeId INT REFERENCES TrainType(id),
+  typeId INT NOT NULL REFERENCES TrainType(id) ON DELETE CASCADE,
   capacity INT NOT NULL
 );
 
 CREATE TABLE TrainPath (
-  trainId INT REFERENCES Train(id),
-  pathId INT REFERENCES Path(id)
-  departure TIME NOT NULL,
+  trainId INT NOT NULL REFERENCES Train(id) ON DELETE CASCADE,
+  pathId INT NOT NULL REFERENCES Path(id) ON DELETE CASCADE,
+  departure TIME NOT NULL
+  PRIMARY KEY (traindI, pathId, departure)
 );
 
 CREATE TABLE Ticket (
   id SERIAL PRIMARY KEY,
-  fromStationId INT REFERENCES Station(id),
-  toStationId INT REFERENCES Station(id),
-  customerId INT REFERENCES Customer(id),
+  fromStationId INT NOT NULL REFERENCES Station(id) ON DELETE CASCADE,
+  toStationId INT NOT NULL REFERENCES Station(id) ON DELETE CASCADE,
+  customerId INT NOT NULL REFERENCES Customer(id) ON DELETE CASCADE,
   price DECIMAL(10, 2) NOT NULL,
   validUntil DATETIME NOT NULL
 );
