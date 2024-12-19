@@ -25,24 +25,22 @@ Notre schéma respecte les règles de la troisième forme normale (3NF). Toutes 
 
 1. Relation entre `Segment`, `Station` et `Line`
     - Table `Segment` :
-        - `fromStationId` et `toStationId` sont des clés étrangères qui pointent vers la table `Station`.
-        - La table `Line` fait référence à des stations via `startStationId` et `endStationId` (table `Station`).
-    > **Relation circulaire implicite :
-    Les segments utilisent des stations, mais ces stations peuvent être liées à une ligne. Si on supprime une station, il faut gérer les segments et lignes associés.**
+      - `fromStationId` et `toStationId` sont des clés étrangères qui pointent vers la table `Station`.
+    - Table `Line`:
+      - `startStationId` et `endStationId` sont des clés étrangères qui pointent vers la table `Station`.
+    - Les tables `Line` et`Segment` sont aussi reliées par `Path` et `PathSegment`
 
-2. Relation entre `Path`, `PathSegment`, et `TrainPath`
-    - Table `Path` : Elle fait référence à la table `Line`.
-    - Table `PathSegment` : Elle dépend de `Path` (clé étrangère `pathId`) et relie des `Segments`.
-    - Table `TrainPath` : Elle dépend de `Path` et de `Train` (via `pathId` et `trainId`).
-    > **Relation circulaire implicite :
-    Si vous supprimez un Path, il faut supprimer les entrées dans PathSegment et TrainPath.**
+2. Relation entre `Path`, `Train`, et `TrainType`
+    - Table `Path` : fait référence à la table `TrainType`.
+    - Table `Train` : fait référence à la table `TrainType`.
+    - Table `TrainPath` : lie `Path` et `Train`.
 
 Gestion des relations circulaires:
-| Relation | Action recommandée | 
+| Relation | Action recommandée |
 |----------|:------------------:|
-| `Segment` -> `Station` | `ON DELETE CASCADE` |
-| `Line` -> `Station` |  `ON DELETE CASCADE` |
-| `PathSegment` -> `Path` | `ON DELETE CASCADE` |
+| `Segment` → `Station` | `ON DELETE CASCADE` |
+| `Line` → `Station` |  `ON DELETE CASCADE` |
+| `PathSegment` → `Path` | `ON DELETE CASCADE` |
 | `TrainPath` → `Path` et `Train` | `ON DELETE CASCADE / SET NULL` |
 ## Prérequis
 

@@ -24,8 +24,8 @@ CREATE TABLE Segment (
   id SERIAL PRIMARY KEY,
   fromStationId INT NOT NULL REFERENCES Station(id) ON DELETE CASCADE,
   toStationId INT NOT NULL REFERENCES Station(id) ON DELETE CASCADE,
-  duration INT NOT NULL,
-  price DECIMAL(10, 2) NOT NULL
+  duration INT NOT NULL CHECK (duration > 0),
+  price DECIMAL(10, 2) NOT NULL CHECK (price >= 0)
 );
 
 CREATE TABLE Path (
@@ -50,8 +50,8 @@ CREATE TABLE Train (
 CREATE TABLE TrainPath (
   trainId INT NOT NULL REFERENCES Train(id) ON DELETE CASCADE,
   pathId INT NOT NULL REFERENCES Path(id) ON DELETE CASCADE,
-  departure TIME NOT NULL
-  PRIMARY KEY (traindI, pathId, departure)
+  departure TIME NOT NULL,
+  PRIMARY KEY (trainId, pathId, departure)
 );
 
 CREATE TABLE Ticket (
@@ -60,12 +60,12 @@ CREATE TABLE Ticket (
   toStationId INT NOT NULL REFERENCES Station(id) ON DELETE CASCADE,
   customerId INT NOT NULL REFERENCES Customer(id) ON DELETE CASCADE,
   price DECIMAL(10, 2) NOT NULL,
-  validUntil DATETIME NOT NULL
+  validUntil TIMESTAMP NOT NULL
 );
 
 CREATE TABLE Customer (
   id SERIAL PRIMARY KEY,
-  firstname VARCHAR(255) NOT NULL,
-  lastname VARCHAR(255) NOT NULL,
-  birthdate DATE NOT NULL
+  firstName VARCHAR(255) NOT NULL,
+  lastName VARCHAR(255) NOT NULL,
+  birthDate DATE NOT NULL
 );
