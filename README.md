@@ -287,9 +287,6 @@ Certaines limitations notables persistent encore et de nombreuses possibilités 
     - Réservations spécifiques (place, train, classe)
     - Suivi de la capacité des trains
     - Billets aller-retour
-
-Système d'abonnements et de tarifs préférentiels
-Authentification des voyageurs
 - Expansion de la gestion des trajets:
   - Système de dates flexible
   - Adaptations d'horaires en temps réel ( retard, suppression, rempalcement, ect. )
