@@ -76,11 +76,15 @@ CREATE INDEX idx_segment_from ON Segment(fromStationId);
 CREATE INDEX idx_segment_to ON Segment(toStationId);
 CREATE INDEX idx_ticket_customer ON Ticket(customerId);
 CREATE INDEX idx_train_type ON Train(typeId);
+CREATE INDEX idx_pathsegment_index ON PathSegment(segmentIndex);
+CREATE INDEX idx_path_line ON Path(lineId);
+CREATE INDEX idx_trainpath_departure ON TrainPath(departure);
 
 -- Composite indexes for common queries
 CREATE INDEX idx_segment_stations ON Segment(fromStationId, toStationId);
 CREATE INDEX idx_train_search ON Train(typeId, capacity);
 CREATE INDEX idx_ticket_search ON Ticket(customerId, validUntil);
+CREATE INDEX idx_ticket_stations ON Ticket(fromStationId, toStationId);
 
 
 ALTER TABLE Line ADD CONSTRAINT check_different_stations 
