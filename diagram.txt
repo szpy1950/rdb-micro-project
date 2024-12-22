@@ -1,80 +1,111 @@
 Table City {
-  id SERIAL
+  id SERIAL PK
+  cityName VARCHAR(255) [not null]
 }
 
 Table TrainType {
-  id SERIAL
+  id SERIAL PK
+  trainTypeName VARCHAR(255) [not null]
 }
 
 Table Station {
-  id SERIAL
-  cityId INT
+  id SERIAL PK
+  cityId INT [not null]
+  stationName VARCHAR(255) [not null]
+
+  indexes {
+    cityId
+  }
 }
 
 Table Line {
-  id SERIAL
-  startStationId INT
-  endStationId INT
+  id SERIAL PK
+  startStationId INT [not null]
+  endStationId INT [not null]
 }
 
 Table Segment {
-  id SERIAL
-  fromStationId INT
-  toStationId INT
-  duration INT
-  trainTypeId INT
-  price DECIMAL(10, 2)
+  id SERIAL PK
+  fromStationId INT [not null]
+  toStationId INT [not null]
+  duration INT [not null]
+  price DECIMAL(10, 2) [not null]
+
+  indexes {
+    fromStationId
+    toStationId
+    (fromStationId, toStationId)
+  }
 }
 
 Table Path {
-  id SERIAL
-  lineId INT
-  trainTypeId INT
+  id SERIAL PK
+  lineId INT [not null]
+  trainTypeId INT [not null]
 }
 
 Table PathSegment {
-  pathId INT
-  segmentId INT
-  segmentIndex INT
+  pathId INT [not null]
+  segmentId INT [not null]
+  segmentIndex INT [not null]
+
+  indexes {
+    (pathId, segmentId, segmentIndex) [pk]
+    (pathId, segmentIndex) [unique]
+  }
 }
 
 Table Train {
-  id SERIAL
-  typeId INT
-  capacity INT
+  id SERIAL PK
+  typeId INT [not null]
+  capacity INT [not null]
+
+  indexes {
+    typeId
+    (typeId, capacity)
+  }
 }
 
 Table TrainPath {
-  trainId INT
-  pathId INT
-  departure TIME
+  trainId INT [not null]
+  pathId INT [not null]
+  departure TIME [not null]
+
+  indexes {
+    (trainId, pathId, departure) [pk]
+  }
 }
 
 Table Ticket {
-  id SERIAL
-  fromStationId INT
-  toStationId INT
-  customerId INT
-  price DECIMAL(10, 2)
-  validUntil DATETIME
+  id SERIAL PK
+  fromStationId INT [not null]
+  toStationId INT [not null]
+  customerId INT [not null]
+  price DECIMAL(10, 2) [not null]
+  validUntil TIMESTAMP [not null]
+
+  indexes {
+    customerId
+    (customerId, validUntil)
+  }
 }
 
 Table Customer {
-  id SERIAL
-  firstname VARCHAR(255)
-  lastname VARCHAR(255)
-  birthdate DATE
+  id SERIAL PK
+  firstName VARCHAR(255) [not null]
+  lastName VARCHAR(255) [not null]
+  birthdate DATE [not null]
 }
 
-Ref: "Station"."id" <> "Segment"."fromStationId"
-Ref: "Station"."id" <> "Segment"."toStationId"
+Ref: "Station"."id" < "Segment"."fromStationId"
+Ref: "Station"."id" < "Segment"."toStationId"
 
 Ref: "PathSegment"."segmentId" > "Segment"."id"
 Ref: "PathSegment"."pathId" > "Path"."id"
 
-Ref: "Station"."cityId" < "City"."id"
+Ref: "Station"."cityId" > "City"."id"
 
-Ref: "Path"."lineId" <> "Line"."id"
+Ref: "Path"."lineId" > "Line"."id"
 
 Ref: "TrainType"."id" > "Path"."trainTypeId"
 
@@ -92,4 +123,4 @@ Ref: "Ticket"."fromStationId" < "Station"."id"
 
 Ref: "Ticket"."toStationId" < "Station"."id"
 
-Ref: "Ticket"."customerId" - "Customer"."id"
+Ref: "Ticket"."customerId" > "Customer"."id"

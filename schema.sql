@@ -10,7 +10,7 @@ CREATE TABLE TrainType (
 
 CREATE TABLE Station (
   id SERIAL PRIMARY KEY,
-  cityId INT REFERENCES City(id),
+  cityId INT NOT NULL REFERENCES City(id),
   stationName VARCHAR(255) NOT NULL
 );
 

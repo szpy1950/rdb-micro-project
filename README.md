@@ -1,6 +1,8 @@
 # RRS: Les Routes du Rail Suisse
 
-<img src="diagram.png">
+<p align="center">
+  <img src="diagram.png">
+</p>
 
 ## Description de la Base de Données
 
