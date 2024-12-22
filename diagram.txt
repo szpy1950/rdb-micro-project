@@ -94,7 +94,7 @@ Table Customer {
   id SERIAL PK
   firstName VARCHAR(255) [not null]
   lastName VARCHAR(255) [not null]
-  birthdate DATE [not null]
+  birthDate DATE [not null]
 }
 
 Ref: "Station"."id" < "Segment"."fromStationId"
