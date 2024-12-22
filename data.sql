@@ -11,7 +11,7 @@ INSERT INTO City (cityName) VALUES
 ('Sierre'),
 ('Martigny'),
 ('Monthey'),
-('St-Maurice')
+('St-Maurice'),
 ('Visp'),
 ('Brig'),
 ('Leuk'),
