@@ -73,6 +73,14 @@ Notre schéma respecte les règles de la troisième forme normale (3NF). Toutes 
 La gestion d'un réseau ferroviaire étant infiniment complexe, nous nous sommes restreints à une modélisation raisonnable.
 Nous ne prenons par exemple pas en compte le temps d'arrêt des trains dans les gares, ni les possibles abonnements des clients.
 
+Notre système stocke le prix final des billets dans la table Ticket. Nous avons choisi de calculer ce prix en dehors de la base de données pour plus de flexibilité. Bien que chaque segment ait un prix de base, le calcul du prix final du billet est géré au niveau applicatif, permettant ainsi de prendre en compte :
+
+- Les prix des segments du trajet
+- Les différentes réductions possibles
+- Les variations selon l'horaire ou la période
+- Les types de voyageurs
+- Les promotions en cours
+
 ### Relations (pseudo-)circulaires
 Certaines tables sont liées de manière quasi-circulaire (plutôt deux demi cercles, A→B, B→C, A→C).\
 Comme il ne s'agit pas de vraies dépendances circulaires, cela ne devrait pas engendrer de problèmes particuliers.
