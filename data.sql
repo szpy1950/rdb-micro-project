@@ -11,7 +11,7 @@ INSERT INTO City (cityName) VALUES
 ('Sierre'),
 ('Martigny'),
 ('Monthey'),
-('St-Maurice')
+('St-Maurice'),
 ('Visp'),
 ('Brig'),
 ('Leuk'),
@@ -86,12 +86,12 @@ INSERT INTO Station (cityId, stationName) VALUES
 (34, 'Gare de Turtmann'),
 (35, 'Gare de Gampel-Steg'),
 (36, 'Gare de Raron'),
-(37, 'Geneve-Aeroport'),
-(38, 'Basel SBB'),
-(39, 'Gare d"Olten'),
-(40, 'Gare de Bern'),
-(41, 'Gare de Thun'),
-(42, 'Gare de Spiez');
+(1, 'Genève-Aéroport'),
+(37, 'Basel SBB'),
+(38, 'Gare d"Olten'),
+(39, 'Gare de Bern'),
+(40, 'Gare de Thun'),
+(41, 'Gare de Spiez');
 
 -- Insert data into Line
 INSERT INTO Line (id, startStationId, endStationId) VALUES
@@ -144,7 +144,7 @@ INSERT INTO Segment (id, fromStationId, toStationId, duration, price) VALUES
 (41, 38, 39, 27, 27), -- Basel SBB -> Gare d'Olten
 (42, 39, 40, 28, 28), -- Gare d'Olten -> Gare de Bern
 (43, 40, 41, 20, 20), -- Gare de Bern -> Gare de Thun
-(44, 41, 42, 9, 9); -- Gare de Thun -> Gare de Spiez
+(44, 41, 42, 9, 9), -- Gare de Thun -> Gare de Spiez
 (45, 42, 13, 26, 26); -- Gare de Spiez -> Gare de Visp
 
 
