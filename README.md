@@ -288,7 +288,10 @@ Certaines limitations notables persistent encore et de nombreuses possibilités 
     - Suivi de la capacité des trains
     - Billets aller-retour
 - Expansion de la gestion des trajets:
-  - Système de dates flexible
+  - Système de dates flexible permettant :
+    - Horaires différenciés selon les jours de la semaine
+    - Ajustement des trajets selon les périodes (vacances, jours fériés)
+    - Actuellement, les horaires (TIME) se répètent quotidiennement
   - Adaptations d'horaires en temps réel ( retard, suppression, rempalcement, ect. )
   - Prise en compte des temps d'arrêt en gare
 - Gestion des trains incomplète:
