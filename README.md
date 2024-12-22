@@ -98,6 +98,29 @@ Gestion des relations (pseudo-)circulaires:
 | `PathSegment` → `Path`          | `ON DELETE CASCADE`            |
 | `TrainPath` → `Path` et `Train` | `ON DELETE CASCADE / SET NULL` |
 
+### Gestion des index
+Des index ont été ajoutés pour optimiser les requêtes fréquentes :
+
+| Index | Table | Utilisation |
+|-------|:------|:------------|
+| `idx_station_city` | `Station(cityId)` | Jointures stations-villes |
+| `idx_segment_from` | `Segment(fromStationId)` | Recherche segments par départ |
+| `idx_segment_to` | `Segment(toStationId)` | Recherche segments par arrivée |
+| `idx_ticket_customer` | `Ticket(customerId)` | Recherche tickets par client |
+| `idx_train_type` | `Train(typeId)` | Recherche trains par type |
+
+Index composites pour les requêtes complexes :
+
+| Index | Table | Utilisation |
+|-------|:------|:------------|
+| `idx_segment_stations` | `Segment(fromStationId, toStationId)` | Recherche de segments entre deux gares |
+| `idx_train_search` | `Train(typeId, capacity)` | Recherche de trains par type et capacité |
+| `idx_ticket_search` | `Ticket(customerId, validUntil)` | Recherche de tickets valides par client |
+| `idx_pathsegment_index` | `PathSegment(segmentIndex)` | Optimisation des horaires de gare |
+| `idx_path_line` | `Path(lineId)` | Jointures avec les lignes |
+| `idx_trainpath_departure` | `TrainPath(departure)` | Recherche trains en circulation |
+| `idx_ticket_stations` | `Ticket(fromStationId, toStationId)` | Statistiques de trajets |
+
 ## Requêtes
 Voici différentes requêtes qui pourraient être utilisées pour récupérer des informations intéressantes.
 
