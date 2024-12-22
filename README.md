@@ -1,9 +1,6 @@
 # RRS: Les Routes du Rail Suisse
 
-
-
 <img src="diagram.png">
-
 
 ## Description de la Base de Données
 
@@ -22,7 +19,6 @@ Ce projet décrit une base de données relationnelle conçue pour gérer les rou
 Notre schéma respecte les règles de la troisième forme normale (3NF). Toutes les colonnes non-clé dépendent uniquement de la clé primaire, et il n'y a ni redondance ni dépendance transitive.
 
 ### Relations circulaires
-
 1. Relation entre `Segment`, `Station` et `Line`
     - Table `Segment` :
       - `fromStationId` et `toStationId` sont des clés étrangères qui pointent vers la table `Station`.
@@ -42,31 +38,32 @@ Gestion des relations circulaires:
 | `Line` → `Station` |  `ON DELETE CASCADE` |
 | `PathSegment` → `Path` | `ON DELETE CASCADE` |
 | `TrainPath` → `Path` et `Train` | `ON DELETE CASCADE / SET NULL` |
-## Prérequis
 
+## Prérequis
 Avant d'installer et d'exécuter ce projet, assurez-vous d'avoir :
 
-- **PostgreSQL** installé.
-- Un éditeur SQL.
-- **Git** pour cloner le dépôt.
+- **PostgreSQL** installé
+- (Optionnel) **git** pour cloner le dépôt
 
 ## Installation
-
 1. **Clonez le dépôt** :
    ```bash
-   git clone https://github.com/username/rrs-rail-suisse.git
-   cd rrs-rail-suisse
+   git clone https://github.com/LordBaryhobal/rdb-micro-project.git
+   cd rdb-micro-project
    ```
-2. **Créez la base de données** dans votre SGBD :
+2. **Créez la base de données** :
    ```sql
    CREATE DATABASE rrs_rail_suisse;
    ```
-3. **Importez le script SQL** contenant le schéma de la base de données :
+3. **Importez le schéma SQL** :
     ```bash
     psql -U utilisateur -d rrs_rail_suisse -f schema.sql
     ```
-4. **Importez les données**
-5. **Importez les usefuls queries**
+4. **Importez les données** :
+    ```bash
+    psql -U utilisateur -d rrs_rail_suisse -f data.sql
+    ```
+5. **Testez les requêtes**
 
 ## Requêtes
 Cette requête permettra de faire des choses vraiment super.
@@ -76,7 +73,6 @@ Ma requête trop super
 Pour cette requête, aucun index ne sera nécessaire.
 
 ## Améliorations futures
-
 - Ajouter une table **Schedule** pour gérer les horaires des trains.
 - Implémenter des contraintes pour éviter les chevauchements de segments.
 - Ajouter une table **Reservation** pour permettre la réservation de places spécifiques dans un train.
