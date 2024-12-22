@@ -40,3 +40,18 @@ JOIN Train t ON tp.trainId = t.id
 JOIN TrainType tt ON t.typeId = tt.id
 WHERE s.id = 1  -- Replace with station ID
 ORDER BY tp.departure;
+
+-- 5) Count the number of trains circulating at a given hour, grouped by train type
+SELECT COUNT(*) AS trains, tt.trainTypeName
+FROM Train AS t
+JOIN TrainType AS tt ON tt.id=t.typeId
+JOIN TrainPath AS tp ON tp.trainId=t.id
+JOIN (
+    SELECT p.id, SUM(s.duration) AS duration
+    FROM Path AS p
+    JOIN PathSegment AS ps ON ps.pathId=p.id
+    JOIN Segment AS s ON s.id=ps.segmentId
+    GROUP BY p.id
+) AS temp ON temp.id=tp.pathId
+WHERE '09:00:00' BETWEEN tp.departure AND tp.departure + (temp.duration * '1 minute'::INTERVAL)
+GROUP BY tt.id;
