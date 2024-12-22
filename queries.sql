@@ -4,16 +4,14 @@
 SELECT 
     COUNT(DISTINCT t.customerId) as total_passengers,
     s_from.stationName as from_station,
-    s_to.stationName as to_station,
-    '2024-01-01'::DATE as travel_date  -- Replace with your date
+    s_to.stationName as to_station
 FROM Ticket t
 LEFT JOIN Station s_from ON t.fromStationId = s_from.id
 LEFT JOIN Station s_to ON t.toStationId = s_to.id
-WHERE DATE(t.validUntil) >= '2024-01-01'  -- Replace with your date
-    AND DATE(t.validUntil - INTERVAL '24 hours') <= '2024-01-01'  -- Replace with your date
-    -- Remove or modify these WHERE conditions as needed:
-    AND t.fromStationId = 1  -- specify departure station
-    AND t.toStationId = 2    -- specify arrival station
+WHERE '2024-12-31'::DATE BETWEEN DATE(t.validUntil) - INTERVAL '1 day'
+                             AND DATE(t.validUntil)  -- Replace with your date
+  AND t.fromStationId = 1  -- departure station
+  AND t.toStationId = 3    -- arrival station
 GROUP BY s_from.stationName, s_to.stationName;
 
 -- 2) List the customers who have purchased tickets above a certain price 
