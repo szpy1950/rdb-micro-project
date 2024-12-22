@@ -91,3 +91,32 @@ ALTER TABLE PathSegment ADD CONSTRAINT check_segment_index
 
 ALTER TABLE PathSegment ADD CONSTRAINT unique_path_segment_order 
     UNIQUE (pathId, segmentIndex);
+
+
+-- Useful views
+CREATE VIEW SegmentWithStations AS (
+  SELECT s.id, st1.stationName AS fromStation, st2.stationName AS toStation, s.duration, s.price
+  FROM Segment AS s
+  JOIN Station AS st1 ON st1.id=s.fromStationId
+  JOIN Station AS st2 ON st2.id=s.toStationId
+);
+
+CREATE VIEW TicketWithNames AS (
+  SELECT t.id,
+         s1.stationName AS fromStation,
+         s2.stationName AS toStation,
+         c.firstName || ' ' || c.lastName AS customer,
+         t.price,
+         t.validUntil
+  FROM Ticket AS t
+  JOIN Station AS s1 ON s1.id=t.fromStationId
+  JOIN Station AS s2 ON s2.id=t.toStationId
+  JOIN Customer AS c ON c.id=t.customerId
+);
+
+CREATE VIEW LineWithStations AS (
+  SELECT l.id, s1.stationName AS fromStation, s2.stationName AS toStation
+  FROM Line AS l
+  JOIN Station AS s1 ON s1.id=l.startStationId
+  JOIN Station AS s2 ON s2.id=l.endStationId
+);

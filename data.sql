@@ -22,7 +22,6 @@ INSERT INTO City (cityName) VALUES
 ('Vionnaz'),
 ('Collombey'),
 ('Massongex'),
-('St-Maurice'),
 ('Evionnaz'),
 ('Vernayaz'),
 ('Charrat-Fully'),
@@ -72,36 +71,35 @@ INSERT INTO Station (cityId, stationName) VALUES
 (20, 'Gare de Vionnaz'),
 (21, 'Gare de Collombey'),
 (22, 'Gare de Massongex'),
-(23, 'Gare de St-Maurice'),
-(24, 'Gare d"Evionnaz'),
-(25, 'Gare de Vernayaz'),
-(26, 'Gare de Charrat-Fully'),
-(27, 'Gare de Saxon'),
-(28, 'Gare de Riddes'),
-(29, 'Gare de Chamoson St-Pierre-de-Clages'),
-(30, 'Gare de Chateauneuf-Conthey'),
-(31, 'Gare d"Ardon'),
-(32, 'Gare de St-Léonard'),
-(33, 'Gare de Salgeasch'),
-(34, 'Gare de Turtmann'),
-(35, 'Gare de Gampel-Steg'),
-(36, 'Gare de Raron'),
+(23, 'Gare d"Evionnaz'),
+(24, 'Gare de Vernayaz'),
+(25, 'Gare de Charrat-Fully'),
+(26, 'Gare de Saxon'),
+(27, 'Gare de Riddes'),
+(28, 'Gare de Chamoson St-Pierre-de-Clages'),
+(29, 'Gare de Chateauneuf-Conthey'),
+(30, 'Gare d"Ardon'),
+(31, 'Gare de St-Léonard'),
+(32, 'Gare de Salgeasch'),
+(33, 'Gare de Turtmann'),
+(34, 'Gare de Gampel-Steg'),
+(35, 'Gare de Raron'),
 (1, 'Genève-Aéroport'),
-(37, 'Basel SBB'),
-(38, 'Gare d"Olten'),
-(39, 'Gare de Bern'),
-(40, 'Gare de Thun'),
-(41, 'Gare de Spiez');
+(36, 'Basel SBB'),
+(37, 'Gare d"Olten'),
+(38, 'Gare de Bern'),
+(39, 'Gare de Thun'),
+(40, 'Gare de Spiez');
 
 -- Insert data into Line
 INSERT INTO Line (id, startStationId, endStationId) VALUES
-(1, 37, 14), -- Geneve-Aeroport -> Gare de Brig
+(1, 36, 14), -- Geneve-Aeroport -> Gare de Brig
 (2, 16, 14), -- Gare de St-Gingolphe -> Gare de Brig
-(3, 38, 14); -- Basel SBB -> Gare de Brig
+(3, 37, 14); -- Basel SBB -> Gare de Brig
 
 -- Insert data into Segment
 INSERT INTO Segment (id, fromStationId, toStationId, duration, price) VALUES
-(1, 37, 1, 7, 7), -- Geneve-Aeroport -> Gare Cornavin
+(1, 36, 1, 7, 7), -- Geneve-Aeroport -> Gare Cornavin
 (2, 1, 2, 14, 14), -- Gare Cornavin -> Gare de Nyon
 (3, 2, 3, 16, 16), -- Gare de Nyon -> Gare de Morges
 (4, 3, 4, 12, 12), -- Gare de Morges -> Gare de Lausanne
@@ -122,30 +120,30 @@ INSERT INTO Segment (id, fromStationId, toStationId, duration, price) VALUES
 (19, 21, 11, 3, 3), -- Gare de Collombey -> Gare de Monthey
 (20, 11, 22, 3, 3), -- Gare de Monthey -> Gare de Massongex
 (21, 22, 23, 5, 5), -- Gare de Massongex -> Gare de St-Maurice
-(22, 23, 24, 5, 5), -- Gare de St-Maurice -> Gare d"Evionnaz
-(23, 24, 25, 3, 3), -- Gare d'Evionnaz -> Gare de Vernayaz
-(24, 25, 10, 5, 5), -- Gare de Vernayaz -> Gare de Martigny
+(22, 12, 24, 5, 5), -- Gare de St-Maurice -> Gare d"Evionnaz
+(23, 23, 25, 3, 3), -- Gare d'Evionnaz -> Gare de Vernayaz
+(24, 24, 10, 5, 5), -- Gare de Vernayaz -> Gare de Martigny
 (25, 10, 26, 4, 4), -- Gare de Martigny -> Gare de Charrat-Fully
-(26, 26, 27, 3, 3), -- Gare de Charrat-Fully -> Gare de Saxon
-(27, 27, 28, 3, 3), -- Gare de Saxon -> Gare de Riddes
-(28, 28, 29, 3, 3), -- Gare de Riddes -> Gare de Chamoson St-Pierre-de-Clages
-(29, 29, 31, 3, 3), -- Gare de Chamoson St-Pierre-de-Clages -> Gare d'Ardon
-(30, 31, 30, 2, 2), -- Gare d'Ardon -> Gare de Chateauneuf-Conthey
-(31, 30, 8, 5, 5), -- Gare de Chateauneuf-Conthey -> Gare de Sion
+(26, 25, 27, 3, 3), -- Gare de Charrat-Fully -> Gare de Saxon
+(27, 26, 28, 3, 3), -- Gare de Saxon -> Gare de Riddes
+(28, 27, 29, 3, 3), -- Gare de Riddes -> Gare de Chamoson St-Pierre-de-Clages
+(29, 28, 31, 3, 3), -- Gare de Chamoson St-Pierre-de-Clages -> Gare d'Ardon
+(30, 30, 30, 2, 2), -- Gare d'Ardon -> Gare de Chateauneuf-Conthey
+(31, 29, 8, 5, 5), -- Gare de Chateauneuf-Conthey -> Gare de Sion
 (32, 8, 32, 5, 5), -- Gare de Sion -> Gare de St-Léonard
-(33, 32, 9, 6, 6), -- Gare de St-Léonard -> Gare de Sierre
+(33, 31, 9, 6, 6), -- Gare de St-Léonard -> Gare de Sierre
 (34, 9, 33, 4, 4), -- Gare de Sierre -> Gare de Salgeasch
-(35, 33, 15, 5, 5), -- Gare de Salgeasch -> Gare de Leuk
+(35, 32, 15, 5, 5), -- Gare de Salgeasch -> Gare de Leuk
 (36, 15, 34, 3, 3), -- Gare de Leuk -> Gare de Turtmann
-(37, 34, 35, 3, 3), -- Gare de Turtmann -> Gare de Gampel-Steg
-(38, 35, 36, 3, 3), -- Gare de Gampel-Steg -> Gare de Raron
-(39, 36, 13, 6, 6), -- Gare de Raron -> Gare de Visp
+(37, 33, 35, 3, 3), -- Gare de Turtmann -> Gare de Gampel-Steg
+(38, 34, 36, 3, 3), -- Gare de Gampel-Steg -> Gare de Raron
+(39, 35, 13, 6, 6), -- Gare de Raron -> Gare de Visp
 (40, 13, 14, 10, 10), -- Gare de Visp -> Gare de Brig (Regio)
-(41, 38, 39, 27, 27), -- Basel SBB -> Gare d'Olten
-(42, 39, 40, 28, 28), -- Gare d'Olten -> Gare de Bern
-(43, 40, 41, 20, 20), -- Gare de Bern -> Gare de Thun
-(44, 41, 42, 9, 9), -- Gare de Thun -> Gare de Spiez
-(45, 42, 13, 26, 26); -- Gare de Spiez -> Gare de Visp
+(41, 37, 39, 27, 27), -- Basel SBB -> Gare d'Olten
+(42, 38, 40, 28, 28), -- Gare d'Olten -> Gare de Bern
+(43, 39, 41, 20, 20), -- Gare de Bern -> Gare de Thun
+(44, 40, 42, 9, 9), -- Gare de Thun -> Gare de Spiez
+(45, 41, 13, 26, 26); -- Gare de Spiez -> Gare de Visp
 
 
 -- Insert data into Path
