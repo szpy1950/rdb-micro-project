@@ -1,7 +1,6 @@
 -- list of interesting querries
 
--- 1) Counting the number of passengers between two given stations at at specific date. It is using the ticket data to achieve our desired result
-
+-- 1) Counting the number of passengers between two given stations at at specific date
 SELECT 
     COUNT(DISTINCT t.customerId) as total_passengers,
     s_from.stationName as from_station,
@@ -16,3 +15,28 @@ WHERE DATE(t.validUntil) >= '2024-01-01'  -- Replace with your date
     AND t.fromStationId = 1  -- specify departure station
     AND t.toStationId = 2    -- specify arrival station
 GROUP BY s_from.stationName, s_to.stationName;
+
+-- 2) List the customers who have purchased tickets above a certain price 
+SELECT DISTINCT 
+    c.firstName,
+    c.lastName,
+    t.price
+FROM Customer c
+JOIN Ticket t ON c.id = t.customerId
+WHERE t.price > 100.00  -- Replace with desired price
+ORDER BY t.price DESC;
+
+-- 3) Find all the departures from a station for the current date
+SELECT 
+    s.stationName,
+    tp.departure,
+    tt.trainTypeName
+FROM Station s
+JOIN Segment seg ON s.id = seg.fromStationId
+JOIN PathSegment ps ON seg.id = ps.segmentId
+JOIN Path p ON ps.pathId = p.id
+JOIN TrainPath tp ON p.id = tp.pathId
+JOIN Train t ON tp.trainId = t.id
+JOIN TrainType tt ON t.typeId = tt.id
+WHERE s.id = 1  -- Replace with station ID
+ORDER BY tp.departure;
