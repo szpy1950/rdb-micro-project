@@ -49,7 +49,6 @@ GROUP BY s1.stationName, s2.stationName
 ORDER BY ticket_count DESC
 LIMIT 10;
 
-
 -- 5) Counting the number of passengers between two given stations at at specific date
 SELECT 
     COUNT(DISTINCT t.customerId) as total_passengers,
