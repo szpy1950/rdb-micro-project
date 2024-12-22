@@ -281,16 +281,20 @@ De plus, ayant tous déjà une expérience du système ferroviaire suisse, il se
 Globalement, le projet s'est déroulé sans obstacle et fut assez intéressant.
 
 En l'état actuel, notre base de données permet déjà de modéliser de manière assez complexe un réseau de train.
-Certaines limitations notables persistent encore:
+Certaines limitations notables persistent encore et de nombreuses possibilités d'extensions ont été identifiées pour des développements futurs :
 - Gestion des clients incomplètes:
-  - authentification
-  - abonnements
-  - achat de billets futurs
-  - réservation de place
-  - billets aller-retour
-  - première classe / deuxième classe
-- Gestion des trajets incomplète:
-  - pas de gestion des dates
-  - pas d'adaptation possible (horaire fixe, pas retard, suppression, remplacement, etc.)
+  - Implémentation de la relation Ticket-TrainPath permettant :
+    - Réservations spécifiques (place, train, classe)
+    - Suivi de la capacité des trains
+    - Billets aller-retour
+
+Système d'abonnements et de tarifs préférentiels
+Authentification des voyageurs
+- Expansion de la gestion des trajets:
+  - Système de dates flexible
+  - Adaptations d'horaires en temps réel ( retard, suppression, rempalcement, ect. )
+  - Prise en compte des temps d'arrêt en gare
 - Gestion des trains incomplète:
-  - pas de composition (nombre de wagons, première / deuxième classe)
+  - Configuration détaillée des compositions
+  - Gestion des wagons par classe
+
