@@ -99,6 +99,22 @@ JOIN TrainPath AS tp ON tp.pathId=p.id
 JOIN Train AS t ON t.id=tp.trainId
 JOIN TrainType AS tt ON tt.id=t.typeId;
 ```
+
+<details>
+<summary><b>Explications</b></summary>
+
+**Récupération des informations sur les chemins:**
+1. Récupère tous les segments partant de la gare (`s1`)
+2. Joint les chemins dont il fait partie (→ `ps1` → `p`)
+3. Joint tous les segments du chemin situé avant la gare (→ `ps2` → `s2` + `WHERE ps2.segmentIndex < ps1.segmentIndex`)
+4. Calcule le temps de trajet avant la gare (`SUM(s2.duration) ...`)
+
+**Formatage des informations:**
+1. Récupère les informations précédentes
+2. Joint les lignes correspondantes pour trouver la gare terminus (→ `l` → `s`)
+3. Joint les trains correspondants pour trouver le type de train (→ `tp` → `t` → `tt`)
+4. Calcule l'heure de départ en aditionnant le temps de trajet avant la gare et l'heure de départ de la ligne
+</details>
 </details>
 
 ### Passagers dépenciers
@@ -114,7 +130,7 @@ SELECT DISTINCT
     t.price
 FROM Customer c
 JOIN Ticket t ON c.id = t.customerId
-WHERE t.price > 100.00  -- Replace with desired price
+WHERE t.price > 30.00  -- Replace with desired price
 ORDER BY t.price DESC;
 ```
 </details>
