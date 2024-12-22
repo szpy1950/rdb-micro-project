@@ -77,19 +77,27 @@ Cette requête listes les départs depuis une gare donnée
 <summary>Montrer / Cacher</summary>
 
 ```sql
-SELECT 
-    s.stationName,
-    tp.departure,
-    tt.trainTypeName
-FROM Station s
-JOIN Segment seg ON s.id = seg.fromStationId
-JOIN PathSegment ps ON seg.id = ps.segmentId
-JOIN Path p ON ps.pathId = p.id
-JOIN TrainPath tp ON p.id = tp.pathId
-JOIN Train t ON tp.trainId = t.id
-JOIN TrainType tt ON t.typeId = tt.id
-WHERE s.id = 1  -- Replace with station ID
-ORDER BY tp.departure;
+SELECT tp.departure + pi.timeOffset AS departure,
+       tt.trainTypeName AS trainType,
+       s.stationName AS terminus
+FROM (
+  SELECT p.id, SUM(s2.duration) * '1 minute'::INTERVAL AS timeOffset
+  FROM Station AS st
+  JOIN Segment AS s1 ON s1.fromStationId=st.id
+  JOIN PathSegment AS ps1 ON ps1.segmentId=s1.id
+  JOIN Path AS p ON p.id=ps1.pathId
+  JOIN PathSegment AS ps2 ON ps1.pathId=p.id
+  JOIN Segment AS s2 ON s2.id=ps2.segmentId
+  WHERE st.id=8  -- Replace with desired station
+    AND ps2.segmentIndex < ps1.segmentIndex
+  GROUP BY p.id
+) AS pi
+JOIN Path as p ON p.id=pi.id
+JOIN Line AS l ON l.id=p.lineId
+JOIN Station AS s ON s.id=l.endStationId
+JOIN TrainPath AS tp ON tp.pathId=p.id
+JOIN Train AS t ON t.id=tp.trainId
+JOIN TrainType AS tt ON tt.id=t.typeId;
 ```
 </details>
 
