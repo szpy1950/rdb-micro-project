@@ -81,3 +81,13 @@ CREATE INDEX idx_train_type ON Train(typeId);
 CREATE INDEX idx_segment_stations ON Segment(fromStationId, toStationId);
 CREATE INDEX idx_train_search ON Train(typeId, capacity);
 CREATE INDEX idx_ticket_search ON Ticket(customerId, validUntil);
+
+
+ALTER TABLE Line ADD CONSTRAINT check_different_stations 
+    CHECK (startStationId != endStationId);
+
+ALTER TABLE PathSegment ADD CONSTRAINT check_segment_index 
+    CHECK (segmentIndex >= 0);
+
+ALTER TABLE PathSegment ADD CONSTRAINT unique_path_segment_order 
+    UNIQUE (pathId, segmentIndex);
